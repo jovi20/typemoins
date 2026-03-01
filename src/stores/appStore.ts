@@ -149,7 +149,7 @@ const defaultConfig: AppConfig = {
   polish_enabled: true,
   translate_enabled: false,
   target_lang: 'en',
-  hotkey: 'Alt+Space',
+  hotkey: 'Ctrl+/',
   hotkey_mode: 'hold',
   output_mode: 'keyboard',
   selected_text_enabled: false,

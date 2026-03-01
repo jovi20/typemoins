@@ -42,7 +42,7 @@ impl Default for AppConfig {
             polish_enabled: true,
             translate_enabled: false,
             target_lang: "en".to_string(),
-            hotkey: "Alt+Space".to_string(),
+            hotkey: "Ctrl+/".to_string(),
             hotkey_mode: "hold".to_string(),
             output_mode: "keyboard".to_string(),
             selected_text_enabled: false,

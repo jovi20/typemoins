@@ -511,8 +511,7 @@ async fn resume_hotkey(
     config_state: tauri::State<'_, storage::ConfigManager>,
 ) -> Result<(), String> {
     let config = config_state.load().await.map_err(|e| e.to_string())?;
-    let shortcut = parse_hotkey(&config.hotkey)
-        .unwrap_or_else(|| Shortcut::new(Some(Modifiers::ALT), Code::Space));
+    let shortcut = parse_hotkey(&config.hotkey).unwrap_or_else(default_shortcut);
     // Ensure clean state, then register
     let _ = app.global_shortcut().unregister_all();
     app.global_shortcut()
@@ -521,6 +520,10 @@ async fn resume_hotkey(
 }
 
 // ─── Hotkey parsing ───
+
+fn default_shortcut() -> Shortcut {
+    Shortcut::new(Some(Modifiers::CONTROL), Code::Slash)
+}
 
 fn build_shortcut_handler(
     app_handle: tauri::AppHandle,
@@ -677,12 +680,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_hotkey_alt_space() {
-        let s = parse_hotkey("Alt+Space");
+    fn test_parse_hotkey_ctrl_slash() {
+        let s = parse_hotkey("Ctrl+/");
         assert!(s.is_some());
         let s = s.unwrap();
-        assert_eq!(s.mods, Modifiers::ALT);
-        assert_eq!(s.key, Code::Space);
+        assert_eq!(s.mods, Modifiers::CONTROL);
+        assert_eq!(s.key, Code::Slash);
     }
 
     #[test]
@@ -696,11 +699,11 @@ mod tests {
 
     #[test]
     fn test_parse_hotkey_case_insensitive() {
-        let s = parse_hotkey("alt+space");
+        let s = parse_hotkey("cTrL+/");
         assert!(s.is_some());
         let s = s.unwrap();
-        assert_eq!(s.mods, Modifiers::ALT);
-        assert_eq!(s.key, Code::Space);
+        assert_eq!(s.mods, Modifiers::CONTROL);
+        assert_eq!(s.key, Code::Slash);
     }
 
     #[test]
@@ -828,8 +831,7 @@ pub fn run() {
             // Load initial config to get hotkey
             let initial_config =
                 tauri::async_runtime::block_on(config_manager.load()).unwrap_or_default();
-            let shortcut = parse_hotkey(&initial_config.hotkey)
-                .unwrap_or_else(|| Shortcut::new(Some(Modifiers::ALT), Code::Space));
+            let shortcut = parse_hotkey(&initial_config.hotkey).unwrap_or_else(default_shortcut);
 
             app.manage(config_manager);
             app.manage(history_store);
