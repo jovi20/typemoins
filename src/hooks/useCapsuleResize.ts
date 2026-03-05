@@ -46,7 +46,7 @@ export function useCapsuleResize() {
         const win = getCurrentWindow()
 
         if (!initialized.current) {
-          // First mount: position at bottom-center of screen
+          // First mount: position at bottom-center of screen, then show
           await win.setSize(new LogicalSize(windowWidth, windowHeight)).catch(() => {})
           try {
             const monitor = await currentMonitor()
@@ -60,6 +60,7 @@ export function useCapsuleResize() {
           } catch {
             /* ignore – monitor info unavailable */
           }
+          await win.show().catch(() => {})
           initialized.current = true
           prevWindowSize.current = { width: windowWidth, height: windowHeight }
           return
