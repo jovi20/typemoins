@@ -100,7 +100,7 @@ fn build_tray_menu(
 pub fn refresh_tray(app: &tauri::AppHandle) {
     let is_recording = app
         .try_state::<pipeline::PipelineHandle>()
-        .map(|p| p.current_state() != pipeline::PipelineState::Idle)
+        .map(|p| p.current_state() == pipeline::PipelineState::Recording)
         .unwrap_or(false);
     let window_visible = app
         .get_webview_window("main")

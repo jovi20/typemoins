@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 import { useAppStore } from '../../../stores/appStore'
-import { updateConfig } from '../../../lib/tauri'
+import { updateConfig, setAutoStart } from '../../../lib/tauri'
 
 export function useDirtyConfig() {
   const config = useAppStore((s) => s.config)
@@ -14,6 +14,7 @@ type SaveResult = 'idle' | 'success' | 'error'
 
 export function DirtyBar() {
   const config = useAppStore((s) => s.config)
+  const savedConfig = useAppStore((s) => s.savedConfig)
   const resetConfig = useAppStore((s) => s.resetConfig)
   const setSavedConfig = useAppStore((s) => s.setSavedConfig)
   const [saving, setSaving] = useState(false)
@@ -27,6 +28,10 @@ export function DirtyBar() {
     setErrorMsg('')
     try {
       await updateConfig(config)
+      // Sync system auto-start only when the value actually changed
+      if (savedConfig?.auto_start !== config.auto_start) {
+        await setAutoStart(config.auto_start)
+      }
       setSavedConfig(config)
       setSaveResult('success')
       setTimeout(() => {

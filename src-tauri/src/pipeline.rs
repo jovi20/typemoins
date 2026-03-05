@@ -560,7 +560,7 @@ impl PipelineHandle {
                 temperature: 0.3,
             };
             let provider = llm::create_provider(&config.llm_provider, Some(self.shared_client.clone()));
-            let enigo_result = if is_keyboard {
+            let enigo_result = if is_keyboard_streaming {
                 Some(Enigo::new(&EnigoSettings::default()).map(SendSyncEnigo))
             } else {
                 None
@@ -568,7 +568,7 @@ impl PipelineHandle {
             // Pre-build clipboard once alongside Enigo to avoid re-opening the system
             // clipboard on every streaming chunk (Windows: OpenClipboard is exclusive,
             // high-frequency re-creation causes lock contention and silent chunk drops).
-            let clipboard_result = if is_keyboard {
+            let clipboard_result = if is_keyboard_streaming {
                 Some(arboard::Clipboard::new())
             } else {
                 None
@@ -620,13 +620,13 @@ impl PipelineHandle {
             let llm_start = std::time::Instant::now();
 
             let on_chunk: llm::ChunkCallback = if is_keyboard_streaming {
-                match enigo_result.expect("enigo_result should be Some when is_keyboard is true") {
+                match enigo_result.expect("enigo_result should be Some when is_keyboard_streaming is true") {
                     Ok(enigo_instance) => {
                         let enigo = Arc::new(Mutex::new(enigo_instance));
                         // Reuse the pre-built clipboard instance; fall back to per-chunk
                         // creation only if pre-build failed (e.g. clipboard daemon not running).
                         let clipboard = clipboard_result
-                            .expect("clipboard_result should be Some when is_keyboard is true")
+                            .expect("clipboard_result should be Some when is_keyboard_streaming is true")
                             .ok()
                             .map(|cb| Arc::new(Mutex::new(cb)));
                         let app_handle = self.app_handle.clone();

@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppStore } from '../../stores/appStore'
 import type { HotkeyMode, OutputMode } from '../../stores/appStore'
-import { updateHotkey, pauseHotkey, resumeHotkey, setAutoStart } from '../../lib/tauri'
+import { updateHotkey, pauseHotkey, resumeHotkey } from '../../lib/tauri'
 import { SegmentedControl } from './shared/SegmentedControl'
 import { Toggle } from './shared/Toggle'
 
@@ -232,13 +232,7 @@ export function GeneralPane() {
         <div className="space-y-3">
           <Toggle
             checked={config.auto_start}
-            onChange={(checked) => {
-              updateConfig({ auto_start: checked })
-              setAutoStart(checked).catch(() => {
-                // Revert on failure
-                updateConfig({ auto_start: !checked })
-              })
-            }}
+            onChange={(checked) => updateConfig({ auto_start: checked })}
             label={t('settings.launchAtStartup')}
           />
           {config.auto_start && (
