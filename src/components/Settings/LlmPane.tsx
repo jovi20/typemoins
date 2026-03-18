@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppStore } from '../../stores/appStore'
-import { useAuthStore } from '../../stores/authStore'
 import { LLM_PROVIDERS, LLM_DEFAULT_CONFIG, TARGET_LANGUAGES } from '../../lib/constants'
 import { benchLlmConnection, fetchLlmModels } from '../../lib/tauri'
 import { FormField } from './shared/FormField'
 import { Toggle } from './shared/Toggle'
-import { CheckCircle2, XCircle, Loader2, RefreshCw, Crown } from 'lucide-react'
+import { CheckCircle2, XCircle, Loader2, RefreshCw } from 'lucide-react'
 
 export function LlmPane() {
   const config = useAppStore((s) => s.config)
@@ -15,10 +14,7 @@ export function LlmPane() {
   const setLlmTestStatus = useAppStore((s) => s.setLlmTestStatus)
   const llmLatencyMs = useAppStore((s) => s.llmLatencyMs)
   const setLlmLatencyMs = useAppStore((s) => s.setLlmLatencyMs)
-  const { user, plan } = useAuthStore()
   const { t } = useTranslation()
-
-  const isCloud = config.llm_provider === 'cloud'
 
   const models = useAppStore((s) => s.llmModels)
   const setModels = useAppStore((s) => s.setLlmModels)
@@ -41,7 +37,6 @@ export function LlmPane() {
 
   // Auto-fetch when API key or base URL changes (debounced); skips if models already cached
   useEffect(() => {
-    if (isCloud) return
     if (!config.llm_api_key || !config.llm_base_url) return
     if (models.length > 0) return
     if (debounceRef.current) clearTimeout(debounceRef.current)
@@ -54,7 +49,7 @@ export function LlmPane() {
         debounceRef.current = null
       }
     }
-  }, [config.llm_api_key, config.llm_base_url, doFetchModels, isCloud, models.length])
+  }, [config.llm_api_key, config.llm_base_url, doFetchModels, models.length])
 
   const handleTest = async () => {
     setLlmTestStatus('testing')
@@ -102,23 +97,7 @@ export function LlmPane() {
         </select>
       </FormField>
 
-      {isCloud ? (
-        <div className="border border-border rounded-[10px] px-3 py-3 space-y-2">
-          <div className="flex items-center gap-2 text-[13px]">
-            <Crown size={14} className="text-accent" />
-            <span className="text-text-primary font-medium">{t('settings.cloudLlmPro')}</span>
-          </div>
-          {!user ? (
-            <p className="text-[12px] text-text-secondary">{t('settings.llmSignInHint')}</p>
-          ) : plan !== 'pro' ? (
-            <p className="text-[12px] text-text-secondary">{t('settings.llmUpgradeHint')}</p>
-          ) : (
-            <p className="text-[12px] text-green-500">{t('settings.llmProActive')}</p>
-          )}
-        </div>
-      ) : (
-        <>
-          <FormField label={t('settings.apiKey')}>
+      <FormField label={t('settings.apiKey')}>
             <div className="flex gap-2">
               <input
                 type="password"
@@ -193,8 +172,6 @@ export function LlmPane() {
               className="w-full px-3 py-2.5 bg-bg-secondary border border-border rounded-[10px] text-[13px] text-text-primary outline-none focus:border-border-focus transition-colors"
             />
           </FormField>
-        </>
-      )}
 
       <div className="space-y-3 pt-1">
         <Toggle

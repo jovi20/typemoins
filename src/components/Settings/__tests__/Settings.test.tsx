@@ -79,11 +79,6 @@ vi.mock('../../../lib/api', () => ({
   getScenes: vi.fn().mockResolvedValue([]),
 }))
 
-// ─── Mock stores/authStore ────────────────────────────────────────────────────
-vi.mock('../../../stores/authStore', () => ({
-  useAuthStore: () => ({ user: null, plan: 'free' }),
-}))
-
 // ─── Import components AFTER mocks ───────────────────────────────────────────
 import { Settings } from '../index'
 

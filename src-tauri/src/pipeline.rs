@@ -12,7 +12,6 @@ use crate::llm::{self, LlmConfig, PolishRequest};
 use crate::output::{self, OutputMode};
 use crate::storage;
 use crate::stt::{self, SttConfig, TranscriptEvent};
-use crate::SessionTokenStore;
 
 // ─── Timing constants ───
 
@@ -250,8 +249,8 @@ impl PipelineHandle {
             config_data.stt_language
         );
 
-        // Guard: empty API key — bail before starting audio (skip for cloud provider)
-        if config_data.stt_api_key.is_empty() && config_data.stt_provider != "cloud" {
+        // Guard: empty API key — bail before starting audio
+        if config_data.stt_api_key.is_empty() {
             let _ = self.app_handle.emit(
                 "pipeline:error",
                 "STT API key is not configured. Please set it in Settings → Speech Recognition.",
@@ -273,16 +272,7 @@ impl PipelineHandle {
         }
 
         // P0-3: Pre-connect STT provider before spawning task
-        let stt_api_key = if config_data.stt_provider == "cloud" {
-            self.app_handle
-                .state::<SessionTokenStore>()
-                .0
-                .lock()
-                .unwrap_or_else(|e| e.into_inner())
-                .clone()
-        } else {
-            config_data.stt_api_key.clone()
-        };
+        let stt_api_key = config_data.stt_api_key.clone();
 
         let stt_config = SttConfig {
             api_key: stt_api_key,
@@ -525,19 +515,8 @@ impl PipelineHandle {
         // garbled output that differed from what History recorded.
 
         // Pre-build LLM provider and Enigo while STT is still processing
-        let pre_llm = if config.polish_enabled
-            && (!config.llm_api_key.is_empty() || config.llm_provider == "cloud")
-        {
-            let llm_api_key = if config.llm_provider == "cloud" {
-                self.app_handle
-                    .state::<SessionTokenStore>()
-                    .0
-                    .lock()
-                    .unwrap_or_else(|e| e.into_inner())
-                    .clone()
-            } else {
-                config.llm_api_key.clone()
-            };
+        let pre_llm = if config.polish_enabled && !config.llm_api_key.is_empty() {
+            let llm_api_key = config.llm_api_key.clone();
 
             let llm_config = LlmConfig {
                 api_key: llm_api_key,
@@ -756,10 +735,6 @@ impl PipelineHandle {
 
         // Pre-warm STT endpoint
         let stt_endpoint = match config.stt_provider.as_str() {
-            "cloud" => {
-                let base = crate::api_base_url();
-                format!("{}/api/proxy/stt", base)
-            }
             "glm-asr" => "https://open.bigmodel.cn/api/paas/v4/audio/transcriptions".to_string(),
             "openai-whisper" => "https://api.openai.com/v1/audio/transcriptions".to_string(),
             "groq-whisper" => "https://api.groq.com/openai/v1/audio/transcriptions".to_string(),
@@ -782,12 +757,7 @@ impl PipelineHandle {
 
         // Pre-warm LLM endpoint if polish is enabled
         if config.polish_enabled {
-            let llm_url = if config.llm_provider == "cloud" {
-                let base = crate::api_base_url();
-                format!("{}/api/proxy/llm", base)
-            } else {
-                config.llm_base_url.clone()
-            };
+            let llm_url = config.llm_base_url.clone();
             tracing::debug!("Pre-warming LLM connection to {}", llm_url);
             let _ = self
                 .shared_client
