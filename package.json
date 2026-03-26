@@ -1,5 +1,5 @@
 {
-  "name": "opentypeless",
+  "name": "typemoins",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -14,13 +14,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tover0314-w/opentypeless"
+    "url": "https://github.com/jovi20/typemoins"
   },
-  "homepage": "https://www.opentypeless.com",
+  "homepage": "https://github.com/jovi20/typemoins",
   "bugs": {
-    "url": "https://github.com/tover0314-w/opentypeless/issues"
+    "url": "https://github.com/jovi20/typemoins/issues"
   },
-  "author": "OpenTypeless Contributors",
+  "author": "Typemoins Contributors",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

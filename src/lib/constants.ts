@@ -1,8 +1,8 @@
 // App metadata
-export const APP_NAME = 'OpenTypeless'
+export const APP_NAME = 'Typemoins'
 export const APP_VERSION = 'v0.1.0'
-export const APP_REPO_URL = 'https://github.com/tover0314-w/opentypeless'
-export const APP_LICENSE_URL = 'https://github.com/tover0314-w/opentypeless/blob/main/LICENSE'
+export const APP_REPO_URL = 'https://github.com/jovi20/typemoins'
+export const APP_LICENSE_URL = 'https://github.com/jovi20/typemoins/blob/main/LICENSE'
 export const STT_PROVIDERS = [
   { value: 'deepgram', label: 'Deepgram Nova-3' },
   { value: 'assemblyai', label: 'AssemblyAI' },
