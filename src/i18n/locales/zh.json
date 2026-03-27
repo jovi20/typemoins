@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "OpenTypeless",
+    "name": "Typemoins",
     "tagline": "AI 语音输入",
     "loading": "加载中...",
     "failedToLoad": "加载应用数据失败。",
@@ -9,11 +9,10 @@
   "nav": {
     "home": "首页",
     "settings": "设置",
-    "history": "历史记录",
-    "pro": "Pro"
+    "history": "历史记录"
   },
   "home": {
-    "welcome": "欢迎使用 OpenTypeless",
+    "welcome": "欢迎使用 Typemoins",
     "description": "按住 {{hotkey}} 开始语音录制。语音将被转录并可选择由 AI 润色。",
     "totalRecordings": "总录音数",
     "today": "今日",
@@ -26,7 +25,7 @@
     "outputMode": "输出模式"
   },
   "onboarding": {
-    "welcomeTitle": "欢迎使用 OpenTypeless",
+    "welcomeTitle": "欢迎使用 Typemoins",
     "welcomeSubtitle": "几个简单步骤，即可开始语音输入",
     "speechRecognition": "语音识别",
     "speechRecognitionDesc": "配置 ASR 服务，将语音转换为文字",
@@ -109,7 +108,7 @@
     "test": "测试",
     "connectionSuccess": "连接成功",
     "connectionFailed": "连接失败",
-    "storedLocally": "存储在本地设备上。绝不会发送到 OpenTypeless 服务器。",
+    "storedLocally": "密钥保存在本地设备上。请求会直接发送到你配置的服务商或 Base URL。",
     "sttLanguage": "语言",
     "model": "模型",
     "fetchModels": "获取可用模型",
@@ -120,7 +119,7 @@
     "selectedTextContext": "选中文本上下文",
     "selectedTextContextDesc": "启用后，前台应用中选中的文本将通过模拟 Ctrl+C 捕获，并作为上下文发送给 LLM。",
     "targetLanguage": "目标语言",
-    "aboutDescription": "开源 AI 语音输入工具。说话即写作 — 实时将语音转化为润色文本。",
+    "aboutDescription": "开源 AI 语音输入工具。说话即可写作，实时输出润色后的文本。",
     "openSource": "开源",
     "license": "许可证",
     "mit": "MIT",
@@ -144,7 +143,6 @@
     "retry": "重试",
     "noScenes": "暂无可用场景包。",
     "all": "全部",
-    "pro": "PRO",
     "promptTemplate": "提示词模板",
     "copyPrompt": "复制提示词",
     "copied": "已复制",

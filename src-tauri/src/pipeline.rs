@@ -115,11 +115,11 @@ impl PipelineHandle {
         // Update tray tooltip + menu to reflect pipeline state
         if let Some(tray_handle) = self.app_handle.try_state::<crate::TrayHandle>() {
             let tooltip = match new_state {
-                PipelineState::Recording => "OpenTypeless - Recording...",
-                PipelineState::Transcribing => "OpenTypeless - Transcribing...",
-                PipelineState::Polishing => "OpenTypeless - Polishing...",
-                PipelineState::Outputting => "OpenTypeless - Outputting...",
-                PipelineState::Idle => "OpenTypeless",
+                PipelineState::Recording => "Typemoins - Recording...",
+                PipelineState::Transcribing => "Typemoins - Transcribing...",
+                PipelineState::Polishing => "Typemoins - Polishing...",
+                PipelineState::Outputting => "Typemoins - Outputting...",
+                PipelineState::Idle => "Typemoins",
             };
             if let Ok(t) = tray_handle.tray.lock() {
                 let _ = t.set_tooltip(Some(tooltip));
@@ -211,7 +211,7 @@ impl PipelineHandle {
         // Update tray for recording state
         if let Some(tray_handle) = self.app_handle.try_state::<crate::TrayHandle>() {
             if let Ok(t) = tray_handle.tray.lock() {
-                let _ = t.set_tooltip(Some("OpenTypeless - Recording..."));
+                let _ = t.set_tooltip(Some("Typemoins - Recording..."));
             }
         }
         crate::refresh_tray(&self.app_handle);
@@ -438,7 +438,7 @@ impl PipelineHandle {
         // Update tray for transcribing state
         if let Some(tray_handle) = self.app_handle.try_state::<crate::TrayHandle>() {
             if let Ok(t) = tray_handle.tray.lock() {
-                let _ = t.set_tooltip(Some("OpenTypeless - Transcribing..."));
+                let _ = t.set_tooltip(Some("Typemoins - Transcribing..."));
             }
         }
         crate::refresh_tray(&self.app_handle);
@@ -710,7 +710,7 @@ impl PipelineHandle {
             anyhow::bail!(
                 "Accessibility permission is required to type text. \
                  Please go to System Settings → Privacy & Security → Accessibility \
-                 and enable OpenTypeless."
+                 and enable Typemoins."
             );
         }
 

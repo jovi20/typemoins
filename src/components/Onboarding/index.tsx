@@ -38,7 +38,7 @@ export function Onboarding() {
 
   const titles = [
     {
-      title: 'Welcome to OpenTypeless',
+      title: 'Welcome to Typemoins',
       subtitle: 'A few quick steps to get started with voice input',
     },
     {

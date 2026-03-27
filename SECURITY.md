@@ -2,28 +2,29 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities through [GitHub Security Advisories](https://github.com/tover0314-w/opentypeless/security/advisories/new).
+Please report security vulnerabilities through GitHub Security Advisories:
 
-**Do not open a public issue for security vulnerabilities.**
+<https://github.com/jovi20/typemoins/security/advisories/new>
+
+Do not open a public issue for security vulnerabilities.
 
 Your report should include:
 
 - A descriptive title
-- Severity assessment (Critical / High / Medium / Low)
-- Affected component(s)
+- Severity assessment
+- Affected component or feature
 - Steps to reproduce
 - Impact description
 
-We will acknowledge your report within 72 hours and aim to release a fix within 14 days for critical issues.
+We will acknowledge valid reports as quickly as possible and coordinate remediation updates through GitHub Security Advisories.
 
 ## Security Model
 
-OpenTypeless follows a **Bring Your Own Key (BYOK)** model:
+Typemoins stores API keys locally via `tauri-plugin-store`.
 
-- All API keys are stored locally on the user's machine via `tauri-plugin-store`
-- No cloud account or server-side storage is required for the core product
-- Audio data is sent directly from the user's machine to the chosen STT/LLM provider
-- Cloud proxy mode requires authentication via session token
+- API keys stay on the user's machine unless the user sends them to a configured provider
+- Audio is sent directly to the selected STT provider
+- LLM requests are sent directly to the configured provider or base URL
 - The application does not collect telemetry or usage data
 - CSP is enabled in the Tauri webview
 
@@ -31,7 +32,7 @@ OpenTypeless follows a **Bring Your Own Key (BYOK)** model:
 
 The following are not considered vulnerabilities:
 
-- Prompt injection in LLM responses (no security boundary to bypass)
+- Prompt injection in LLM responses where no security boundary is crossed
 - Users exposing their own API keys through misconfiguration
 - Issues requiring physical access to the user's machine
-- Vulnerabilities in third-party STT/LLM provider APIs
+- Vulnerabilities in third-party STT or LLM provider APIs

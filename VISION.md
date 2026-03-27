@@ -1,12 +1,12 @@
 # Vision
 
-## What is OpenTypeless?
+## What is Typemoins?
 
-OpenTypeless is an open-source, cross-platform desktop application that converts speech to polished text using AI. It combines real-time speech-to-text with LLM-powered refinement, letting users speak naturally and get well-structured written output.
+Typemoins is an open-source, cross-platform desktop application that converts speech to polished text using AI. It combines real-time speech-to-text with LLM-powered refinement, letting users speak naturally and get well-structured written output.
 
 ## Origin
 
-OpenTypeless was built in a single day with the help of Claude Code — demonstrating that AI-assisted development can produce real, usable software rapidly. The project is now open source so the community can shape its future.
+Typemoins was built in a single day with the help of Claude Code — demonstrating that AI-assisted development can produce real, usable software rapidly. The project is now open source so the community can shape its future.
 
 ## Core Principles
 

@@ -3287,7 +3287,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opentypeless"
+name = "typemoins"
 version = "0.1.0"
 dependencies = [
  "anyhow",

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "OpenTypeless",
+    "name": "Typemoins",
     "tagline": "AI Voice Input",
     "loading": "Loading...",
     "failedToLoad": "Failed to load application data.",
@@ -9,11 +9,10 @@
   "nav": {
     "home": "Home",
     "settings": "Settings",
-    "history": "History",
-    "pro": "Pro"
+    "history": "History"
   },
   "home": {
-    "welcome": "Welcome to OpenTypeless",
+    "welcome": "Welcome to Typemoins",
     "description": "Hold {{hotkey}} to start voice recording. Your speech will be transcribed and optionally polished by AI.",
     "totalRecordings": "Total Recordings",
     "today": "Today",
@@ -26,7 +25,7 @@
     "outputMode": "Output Mode"
   },
   "onboarding": {
-    "welcomeTitle": "Welcome to OpenTypeless",
+    "welcomeTitle": "Welcome to Typemoins",
     "welcomeSubtitle": "A few quick steps to get started with voice input",
     "speechRecognition": "Speech Recognition",
     "speechRecognitionDesc": "Configure your ASR service to convert speech to text",
@@ -109,7 +108,7 @@
     "test": "Test",
     "connectionSuccess": "Connection successful",
     "connectionFailed": "Connection failed",
-    "storedLocally": "Stored locally on your device. Never sent to OpenTypeless servers.",
+    "storedLocally": "Stored locally on your device. Requests go directly to the provider or base URL you configure.",
     "sttLanguage": "Language",
     "model": "Model",
     "fetchModels": "Fetch available models",
@@ -120,7 +119,7 @@
     "selectedTextContext": "Selected Text Context",
     "selectedTextContextDesc": "When enabled, the selected text in the foreground app will be captured via simulated Ctrl+C and sent to the LLM as context.",
     "targetLanguage": "Target Language",
-    "aboutDescription": "Open-source AI voice input tool. Speak to write — turn your voice into polished text in real time.",
+    "aboutDescription": "Open-source AI voice input tool. Speak to write and turn your voice into polished text in real time.",
     "openSource": "Open Source",
     "license": "License",
     "mit": "MIT",
@@ -144,7 +143,6 @@
     "retry": "Retry",
     "noScenes": "No scene packs available yet.",
     "all": "All",
-    "pro": "PRO",
     "promptTemplate": "Prompt Template",
     "copyPrompt": "Copy prompt",
     "copied": "Copied",

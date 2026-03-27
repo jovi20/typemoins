@@ -22,12 +22,12 @@ jobs:
 
             We'll take a look as soon as possible. In the meantime:
             - Make sure you've filled out the template completely
-            - Check [existing issues](https://github.com/tover0314-w/opentypeless/issues) for duplicates
-            - Join our [Discord](https://discord.gg/V6rRpJ4RGD) if you need quick help
+            - Check [existing issues](https://github.com/jovi20/typemoins/issues) for duplicates
+            - Start a discussion if you need help or want feedback on an idea
           pr-message: |
             Thanks for your first pull request! 🎉
 
             A maintainer will review it soon. While you wait:
             - Make sure CI checks pass
-            - Check the [contributing guide](https://github.com/tover0314-w/opentypeless/blob/main/CONTRIBUTING.md)
-            - Join our [Discord](https://discord.gg/V6rRpJ4RGD) to chat with the team
+            - Check the [contributing guide](https://github.com/jovi20/typemoins/blob/main/CONTRIBUTING.md)
+            - Open a discussion if you want to talk through the change

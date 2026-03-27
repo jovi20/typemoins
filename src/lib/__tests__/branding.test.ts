@@ -1,21 +1,26 @@
 import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { APP_NAME, APP_REPO_URL } from '../constants'
+import { APP_LICENSE_URL, APP_NAME, APP_REPO_URL } from '../constants'
 import en from '../../i18n/locales/en.json'
 
-function readJson<T>(path: string): T {
-  return JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8')) as T
+const TEST_DIR = dirname(fileURLToPath(import.meta.url))
+const REPO_ROOT = resolve(TEST_DIR, '../../..')
+
+function readJsonFromRoot<T>(pathFromRoot: string): T {
+  return JSON.parse(readFileSync(resolve(REPO_ROOT, pathFromRoot), 'utf8')) as T
 }
 
 describe('Typemoins branding metadata', () => {
   it('uses Typemoins app constants', () => {
     expect(APP_NAME).toBe('Typemoins')
     expect(APP_REPO_URL).toBe('https://github.com/jovi20/typemoins')
+    expect(APP_LICENSE_URL).toBe('https://github.com/jovi20/typemoins/blob/main/LICENSE')
   })
 
   it('uses Typemoins package metadata', () => {
-    const pkg = readJson<{
+    const pkg = readJsonFromRoot<{
       name: string
       homepage?: string
       repository: { url: string }
@@ -31,7 +36,7 @@ describe('Typemoins branding metadata', () => {
   })
 
   it('uses Typemoins tauri identity', () => {
-    const tauri = readJson<{
+    const tauri = readJsonFromRoot<{
       productName: string
       identifier: string
       app: { windows: Array<{ title: string }> }
